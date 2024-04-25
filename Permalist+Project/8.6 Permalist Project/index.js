@@ -47,6 +47,10 @@ app.post("/add", (req, res) => {
 });
 
 app.post("/edit", (req, res) => {
+
+  db.query('UPDATE items SET title = $1 WHERE id = $2', [req.body.updatedItemTitle, req.body.updatedItemId]);
+  console.log(req.body);
+  res.redirect("/");
   
 });
 
