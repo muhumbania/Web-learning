@@ -43,13 +43,19 @@ app.post("/add", (req, res) => {
   });
 
   console.log(req.body);
-  // items.push({ title: item });
   res.redirect("/");
 });
 
-app.post("/edit", (req, res) => {});
+app.post("/edit", (req, res) => {
+  
+});
 
-app.post("/delete", (req, res) => {});
+app.post("/delete", (req, res) => {
+  console.log(req.body);
+  db.query('DELETE from items WHERE ID = $1', [req.body.deleteItemId]);
+  res.redirect("/");
+
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
