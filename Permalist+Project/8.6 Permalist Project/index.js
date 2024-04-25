@@ -26,7 +26,7 @@ let items = [];
 app.get("/", (req, res) => {
   db.query('SELECT * FROM items', function(err, result){
     items = result.rows;
-    console.log(result.rows);
+    // console.log(result.rows);
     res.render("index.ejs", {
       listTitle: "Today",
       listItems: items,
@@ -35,11 +35,17 @@ app.get("/", (req, res) => {
   
 });
 
-// app.post("/add", (req, res) => {
-//   const item = req.body.newItem;
-//   items.push({ title: item });
-//   res.redirect("/");
-// });
+app.post("/add", (req, res) => {
+  const item = req.body.newItem;
+
+  db.query('INSERT INTO items (title) VALUES ($1)', [item], (err, result) => {
+    // ... handle error or result
+  });
+
+  console.log(req.body);
+  // items.push({ title: item });
+  res.redirect("/");
+});
 
 app.post("/edit", (req, res) => {});
 
